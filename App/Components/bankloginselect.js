@@ -6,7 +6,6 @@ var {
   StyleSheet,
   Text,
   View,
-  ListView,
   TouchableHighlight,
   PixelRatio,
   ScrollView
@@ -19,8 +18,10 @@ var banks = ['American Express', 'Bank of America', 'Capital One 360',
 var BankLoginSelect = React.createClass({
 
   render: function(){
+
     return (
       <ScrollView
+      automaticallyAdjustContentInsets={false}
       style={styles.scrollView}
       stickyHeaderIndices={[0,1]}>
 
@@ -49,13 +50,13 @@ var BankLoginSelect = React.createClass({
   _createBankRows: function(bank, i){
     if (bank !== 'Wells Fargo'){
       return (
-        <View style={styles.row} ref={i}>
+        <View style={styles.row} key={i}>
           <Text style={styles.bank}>{bank}</Text>
         </View>
       )
     } else {
       return(
-        <View style={styles.row2} ref={i}>
+        <View style={styles.row2} key={i}>
           <Text style={styles.bank}>{bank}</Text>
         </View>
       );
