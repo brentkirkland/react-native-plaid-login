@@ -12,10 +12,13 @@ var {
   View,
   ListView,
   TouchableHighlight,
-  PixelRatio
+  PixelRatio,
+  ScrollView
 } = React;
 
-var banks = ['American Express', 'Bank of America', 'Capital One 360', 'Charles Schwab', 'Chase', 'Citi', 'Fidelity', 'PNC', 'Silicon Valley Bank', 'US Bank', 'USAA', 'Wells Fargo']
+var banks = ['American Express', 'Bank of America', 'Capital One 360',
+            'Charles Schwab', 'Chase', 'Citi', 'Fidelity', 'PNC',
+            'Silicon Valley Bank', 'US Bank', 'USAA', 'Wells Fargo']
 
 var PlaidLogin = React.createClass({
   getInitialState: function(){
@@ -35,7 +38,9 @@ var PlaidLogin = React.createClass({
   },
   render: function() {
     return (
-      <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} onScroll={this.handleScroll} style={styles.scrollView} stickyHeaderIndices={[0,1]} bounces={true}>
+        <View style={styles.space}>
+        </View>
         <View style={styles.top}>
           <Text style={styles.welcome}>
             react-native-plaid-login
@@ -44,13 +49,16 @@ var PlaidLogin = React.createClass({
             Login into your bank to get started
           </Text>
         </View>
+        <View style={styles.space}>
+        </View>
         <View style={styles.bottom}>
           <ListView
           dataSource={this.state.dataSource.cloneWithRows(banks)}
           renderRow={this._renderRow}
+          showsVerticalScrollIndicator={true}
           style={styles.listView}/>
       </View>
-    </View>
+  </ScrollView>
     );
   },
 });
@@ -68,6 +76,17 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
     backgroundColor: '#1a1a1a',
+    padding: 10
+  },
+  space: {
+    height: 100,
+    backgroundColor: '#1a1a1a',
+  },
+  scrollView: {
+    backgroundColor: '#fff',
+  },
+  scrollView2: {
+    backgroundColor: '#fff',
   },
   bottom: {
     flex: 1,
@@ -91,7 +110,7 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#fff',
-    margin: 10,
+    marginTop: 10,
   },
   instructions: {
     textAlign: 'center',
