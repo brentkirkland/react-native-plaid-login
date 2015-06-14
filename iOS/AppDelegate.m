@@ -44,7 +44,7 @@
    */
 
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"PlaidLogin"
                                                    launchOptions:launchOptions];
