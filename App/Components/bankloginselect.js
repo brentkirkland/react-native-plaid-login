@@ -8,7 +8,7 @@ var {
   View,
   TouchableHighlight,
   PixelRatio,
-  ScrollView
+  ScrollView,
 } = React;
 
 var banks = ['American Express', 'Bank of America', 'Capital One 360',
@@ -50,15 +50,21 @@ var BankLoginSelect = React.createClass({
   _createBankRows: function(bank, i){
     if (bank !== 'Wells Fargo'){
       return (
-        <View style={styles.row} key={i}>
-          <Text style={styles.bank}>{bank}</Text>
-        </View>
+        <TouchableHighlight
+        underlayColor='#f7fafa'>
+          <View style={styles.row} key={i}>
+              <Text style={styles.bank}>{bank}</Text>
+          </View>
+        </TouchableHighlight>
       )
     } else {
       return(
-        <View style={styles.row2} key={i}>
-          <Text style={styles.bank}>{bank}</Text>
-        </View>
+        <TouchableHighlight
+        underlayColor='#f7fafa'>
+          <View style={styles.row2} key={i}>
+              <Text style={styles.bank}>{bank}</Text>
+          </View>
+        </TouchableHighlight>
       );
     }
   },
@@ -86,6 +92,7 @@ var styles = StyleSheet.create({
     marginLeft: 10,
     height: 50,
     justifyContent: 'center',
+    alignItems: 'stretch',
     borderBottomColor: '#1a1a1a',
     borderBottomWidth: 1/PixelRatio.get(),
   },
