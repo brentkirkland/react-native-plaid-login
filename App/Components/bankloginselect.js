@@ -9,6 +9,7 @@ var {
   TouchableHighlight,
   PixelRatio,
   ScrollView,
+  Image,
 } = React;
 
 var banks = ['American Express', 'Bank of America', 'Capital One 360',
@@ -30,15 +31,16 @@ var BankLoginSelect = React.createClass({
           <View style={styles.space}/>
 
           <View style={styles.top}>
-              <Text style={styles.welcome}>
-                react-native-plaid-login
-              </Text>
-              <Text style={styles.instructions}>
-                Login into your bank to get started
-              </Text>
+              <Image
+              source={require('../../img/plaidlogo@2x.png')}></Image>
           </View>
 
           <View style={styles.space}/>
+          <View style={styles.space2}>
+              <Text style={styles.instructions}>
+                Select Your Bank
+              </Text>
+          </View>
 
           <View style={styles.bottom}>
 
@@ -98,16 +100,18 @@ var styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   instructions: {
-    textAlign: 'center',
-    color: '#001D39',
-    marginBottom: 5,
+    fontSize: 10,
+    textAlign: 'left',
+    fontWeight: 'bold',
+    paddingLeft: 10,
+    color: '#fff',
   },
   row: {
     marginLeft: 10,
     height: 50,
     justifyContent: 'center',
     alignItems: 'stretch',
-    borderBottomColor: '#001D39',
+    borderBottomColor: '#E6E9EC',
     borderBottomWidth: 1/PixelRatio.get(),
   },
   row2: {
@@ -120,16 +124,21 @@ var styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   space: {
-    height: 100,
+    height: 85,
     backgroundColor: '#f7fafa',
   },
+  space2: {
+    justifyContent: 'center',
+    height: 30,
+    backgroundColor: '#001D39',
+  },
   top: {
-    flex: .5,
+    height: 85,
     justifyContent: 'center',
     alignSelf: 'stretch',
     alignItems: 'center',
     backgroundColor: '#f7fafa',
-    padding: 10
+    padding: 20,
   },
   welcome: {
     fontSize: 17,
