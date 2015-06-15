@@ -13,7 +13,9 @@ var {
 
 var banks = ['American Express', 'Bank of America', 'Capital One 360',
             'Charles Schwab', 'Chase', 'Citi', 'Fidelity', 'PNC',
-            'Silicon Valley Bank', 'US Bank', 'USAA', 'Wells Fargo']
+            'Silicon Valley Bank', 'US Bank', 'USAA', 'Wells Fargo'];
+
+var BankLogin = require('./banklogin.js')
 
 var BankLoginSelect = React.createClass({
 
@@ -51,7 +53,13 @@ var BankLoginSelect = React.createClass({
     if (bank !== 'Wells Fargo'){
       return (
         <TouchableHighlight
-        underlayColor='#f7fafa'>
+        underlayColor='#f7fafa'
+        onPress={() => this.props.navigator.push({
+          title: bank,
+          component: BankLogin,
+          props: bank,
+        })}
+        key={i}>
           <View style={styles.row} key={i}>
               <Text style={styles.bank}>{bank}</Text>
           </View>
@@ -60,7 +68,9 @@ var BankLoginSelect = React.createClass({
     } else {
       return(
         <TouchableHighlight
-        underlayColor='#f7fafa'>
+        underlayColor='#f7fafa'
+        onPress={() => this._onCellPress(bank)}
+        key={i}>
           <View style={styles.row2} key={i}>
               <Text style={styles.bank}>{bank}</Text>
           </View>
@@ -68,6 +78,9 @@ var BankLoginSelect = React.createClass({
       );
     }
   },
+  _onCellPress: function(bank){
+    console.log(event)
+  }
 
 });
 
@@ -75,6 +88,7 @@ var styles = StyleSheet.create({
   bank: {
     fontSize: 12,
     fontWeight: 'bold',
+    color: '#001D39'
   },
   bottom: {
     flex: 1,
@@ -85,7 +99,7 @@ var styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#1a1a1a',
+    color: '#001D39',
     marginBottom: 5,
   },
   row: {
@@ -93,7 +107,7 @@ var styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'stretch',
-    borderBottomColor: '#1a1a1a',
+    borderBottomColor: '#001D39',
     borderBottomWidth: 1/PixelRatio.get(),
   },
   row2: {
@@ -121,7 +135,7 @@ var styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#1a1a1a',
+    color: '#001D39',
     marginTop: 10,
   },
 });
