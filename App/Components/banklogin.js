@@ -8,6 +8,7 @@ var {
   View,
   TextInput,
   PixelRatio,
+  ScrollView
 } = React;
 
 var BankLogin = React.createClass({
@@ -15,7 +16,10 @@ var BankLogin = React.createClass({
 	render: function(){
 		console.log(this.props)
 		return(
-			<View style={styles.container}>
+      <ScrollView
+      automaticallyAdjustContentInsets={false}
+      style={styles.container}
+      stickyHeaderIndices={[0,1]}>
           <View style={styles.space}/>
           <View style={styles.top}>
 					<Text style={styles.bank}>{this.props.route.props}</Text>
@@ -23,12 +27,18 @@ var BankLogin = React.createClass({
           <View style={styles.space}/>
            <View style={styles.space2}>
               <Text style={styles.instructions}>
+                Enter Your Username and Password
+              </Text>
+          </View>
+					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} autoCorrect={false} placeholder={'username'}/>
+					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} password={true} placeholder={'password'}/>
+
+          <View style={styles.button}>
+              <Text style={styles.signIn}>
                 Sign In
               </Text>
           </View>
-					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} placeholder={'username'}/>
-					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} password={true} placeholder={'password'}/>
-			</View>
+      </ScrollView>
 		)
 		
 
@@ -43,6 +53,12 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#001D39',
     marginTop: 10,
+  },
+  signIn: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#001D39',
+    textAlign: 'center'
   },
   instructions: {
     fontSize: 10,
@@ -70,6 +86,13 @@ var styles = StyleSheet.create({
   },
   space: {
     height: 85,
+  },
+  button: {
+    height: 40,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    paddingLeft: 10,
+    marginTop: 1,
   },
   space2: {
     justifyContent: 'center',

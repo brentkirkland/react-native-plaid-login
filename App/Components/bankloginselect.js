@@ -121,7 +121,7 @@ var styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f7fafa',
   },
   space: {
     height: 85,
