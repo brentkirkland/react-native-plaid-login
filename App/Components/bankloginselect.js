@@ -32,7 +32,7 @@ var BankLoginSelect = React.createClass({
 
           <View style={styles.top}>
               <Image
-              source={require('../../img/plaidlogo@2x.png')}></Image>
+              source={require('image!plaidlogo')}></Image>
           </View>
 
           <View style={styles.space}/>
@@ -88,7 +88,7 @@ var BankLoginSelect = React.createClass({
 
 var styles = StyleSheet.create({
   bank: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#001D39'
   },

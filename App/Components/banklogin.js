@@ -12,7 +12,7 @@ var {
 } = React;
 
 var BankLogin = React.createClass({
- 
+
 	render: function(){
 		console.log(this.props)
 		return(
@@ -33,14 +33,19 @@ var BankLogin = React.createClass({
 					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} autoCorrect={false} placeholder={'username'}/>
 					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} password={true} placeholder={'password'}/>
 
-          <View style={styles.button}>
+          <View style={styles.bottom}>
+
+
+
+            <View style={styles.button}>
               <Text style={styles.signIn}>
                 Sign In
               </Text>
+            </View>
           </View>
       </ScrollView>
 		)
-		
+
 
 	},
 
@@ -55,7 +60,6 @@ var styles = StyleSheet.create({
     marginTop: 10,
   },
   signIn: {
-    fontSize: 12,
     fontWeight: 'bold',
     color: '#001D39',
     textAlign: 'center'
@@ -69,7 +73,7 @@ var styles = StyleSheet.create({
   },
   textInput: {
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 17,
   	height: 50,
   	color: '#001D39',
   	backgroundColor: '#fff',
@@ -108,12 +112,10 @@ var styles = StyleSheet.create({
     padding: 20,
   },
   bottom: {
-    flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'stretch',
-    alignItems: 'center',
+    height: 200,
     backgroundColor: '#f7fafa',
-    padding: 20,
+    alignItems: 'stretch'
+
   },
  });
 
