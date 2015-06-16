@@ -20,22 +20,33 @@ var BankLogin = require('./banklogin.js')
 
 var BankLoginSelect = React.createClass({
 
+  getInitialState: function() {
+  //var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  return {
+    test: false
+  };
+  },
+
   render: function(){
 
     return (
       <ScrollView
+      onScroll={this._handleScroll}
+      scrollEventThrottle={50}
       automaticallyAdjustContentInsets={false}
       style={styles.scrollView}
       stickyHeaderIndices={[0,1]}>
 
           <View style={styles.space}/>
 
-          <View style={styles.top}>
+          <View style={[styles.top, this.state.test && styles.top2]}>
               <Image
+                resizeMode={'contain'}
               source={require('image!plaidlogo')}></Image>
           </View>
 
           <View style={styles.space}/>
+
           <View style={styles.space2}>
               <Text style={styles.instructions}>
                 Select Your Bank
@@ -82,7 +93,15 @@ var BankLoginSelect = React.createClass({
   },
   _onCellPress: function(bank){
     console.log(event)
-  }
+  },
+  _handleScroll: function(event: Object){
+    if (event.nativeEvent.contentOffset.y > 198) {
+      this.setState({test: true})
+    }
+    else {
+      this.setState({test: false})
+    }
+  },
 
 });
 
@@ -139,6 +158,17 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f7fafa',
     padding: 20,
+    paddingTop: 30,
+  },
+  top2: {
+    height: 85,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    backgroundColor: '#f7fafa',
+    padding: 20,
+    borderBottomColor: '#001D39',
+    borderBottomWidth: 1/PixelRatio.get(),
   },
   welcome: {
     fontSize: 17,
