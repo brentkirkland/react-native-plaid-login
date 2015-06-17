@@ -8,13 +8,26 @@ var {
   View,
   TextInput,
   PixelRatio,
-  ScrollView
+  ScrollView,
+  TouchableHighlight,
 } = React;
 
-var BankLogin = React.createClass({
+var KeyboardEvents = require('react-native-keyboardevents');
+var KeyboardEventEmitter = KeyboardEvents.Emitter;
 
+var BankLogin = React.createClass({
+  getInitialState: function() {
+      KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidShowEvent, (frames) => {
+          this.setState({keyboardSpace: frames.end.height});
+      });
+      KeyboardEventEmitter.on(KeyboardEvents.KeyboardWillHideEvent, (frames) => {
+          this.setState({keyboardSpace: 0});
+      });
+      return {
+        keyboardSpace: 0,
+      };
+  },
 	render: function(){
-		console.log(this.props)
 		return(
       <View
       style={styles.container}>
@@ -36,17 +49,30 @@ var BankLogin = React.createClass({
 					       <TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} password={true} placeholder={'password'}/>
           </View>
           <View style={styles.bottom}></View>
-          <View style={styles.row2}>
-            <View style={styles.button2}>
+          <View style={
+            {height: 50 + this.state.keyboardSpace,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'stretch',}
+          }>
+
+            <TouchableHighlight
+            underlayColor='#E6E9EC'
+            onPress={() => this.props.navigator.pop()}
+            style={styles.button2}>
               <Text style={styles.cancel}>
                 Cancel
               </Text>
-            </View>
-            <View style={styles.button}>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+            underlayColor='#E6E9EC'
+            onPress={() => this.props.navigator.pop()}
+            style={styles.button}>
               <Text style={styles.signIn}>
                 Sign In
               </Text>
-            </View>
+            </TouchableHighlight>
           </View>
       </View>
 		)
@@ -108,7 +134,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 5,
     marginRight: 10,
-    borderRadius: 2,
+    borderRadius: 1,
     opacity: .40,
   },
   button2: {
@@ -118,7 +144,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 5,
     marginLeft: 10,
-    borderRadius: 2,
+    borderRadius: 1,
     borderColor: '#E6E9EC',
     borderWidth: 1/PixelRatio.get(),
   },
@@ -151,9 +177,10 @@ var styles = StyleSheet.create({
   },
   row2: {
     height: 50,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
+    marginTop: 1,
+    marginLeft: 10,
   },
  });
 
