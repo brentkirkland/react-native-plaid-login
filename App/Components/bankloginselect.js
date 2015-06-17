@@ -95,7 +95,7 @@ var BankLoginSelect = React.createClass({
     console.log(event)
   },
   _handleScroll: function(event: Object){
-    if (event.nativeEvent.contentOffset.y > 198) {
+    if (event.nativeEvent.contentOffset.y > 188) {
       this.setState({test: true})
     }
     else {
@@ -143,7 +143,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#f7fafa',
   },
   space: {
-    height: 85,
+    height: 90,
     backgroundColor: '#f7fafa',
   },
   space2: {
@@ -152,7 +152,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#001D39',
   },
   top: {
-    height: 85,
+    height: 70,
     justifyContent: 'center',
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -161,7 +161,7 @@ var styles = StyleSheet.create({
     paddingTop: 30,
   },
   top2: {
-    height: 85,
+    height: 70,
     justifyContent: 'center',
     alignSelf: 'stretch',
     alignItems: 'center',

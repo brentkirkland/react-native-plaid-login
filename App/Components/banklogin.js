@@ -16,10 +16,8 @@ var BankLogin = React.createClass({
 	render: function(){
 		console.log(this.props)
 		return(
-      <ScrollView
-      automaticallyAdjustContentInsets={false}
-      style={styles.container}
-      stickyHeaderIndices={[0,1]}>
+      <View
+      style={styles.container}>
           <View style={styles.space}/>
           <View style={styles.top}>
 					<Text style={styles.bank}>{this.props.route.props}</Text>
@@ -30,20 +28,27 @@ var BankLogin = React.createClass({
                 Enter Your Username and Password
               </Text>
           </View>
-					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} autoCorrect={false} placeholder={'username'}/>
-					<TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} password={true} placeholder={'password'}/>
 
-          <View style={styles.bottom}>
-
-
-
+          <View style={styles.row}>
+					       <TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} autoCorrect={false} placeholder={'username'}/>
+          </View>
+          <View style={styles.row}>
+					       <TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} password={true} placeholder={'password'}/>
+          </View>
+          <View style={styles.bottom}></View>
+          <View style={styles.row2}>
+            <View style={styles.button2}>
+              <Text style={styles.cancel}>
+                Cancel
+              </Text>
+            </View>
             <View style={styles.button}>
               <Text style={styles.signIn}>
                 Sign In
               </Text>
             </View>
           </View>
-      </ScrollView>
+      </View>
 		)
 
 
@@ -60,9 +65,18 @@ var styles = StyleSheet.create({
     marginTop: 10,
   },
   signIn: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    margin: 10,
+  },
+  cancel: {
+    fontSize: 14,
     fontWeight: 'bold',
     color: '#001D39',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginRight: 10,
   },
   instructions: {
     fontSize: 10,
@@ -72,31 +86,41 @@ var styles = StyleSheet.create({
     color: '#fff',
   },
   textInput: {
-    fontWeight: 'bold',
-    fontSize: 17,
   	height: 50,
   	color: '#001D39',
-  	backgroundColor: '#fff',
-  	marginTop: 1,
-  	paddingLeft: 10,
   },
   container: {
     flex: 1,
-    backgroundColor: '#f7fafa',
+    backgroundColor: '#fff',
   },
    topContainer: {
    	height: 500,
     alignItems: 'center',
   },
   space: {
-    height: 85,
+    height: 90,
+    backgroundColor: '#f7fafa',
   },
   button: {
+    flex: 1,
     height: 40,
-    backgroundColor: '#fff',
+    backgroundColor: '#001D39',
     justifyContent: 'center',
-    paddingLeft: 10,
-    marginTop: 1,
+    marginLeft: 5,
+    marginRight: 10,
+    borderRadius: 2,
+    opacity: .40,
+  },
+  button2: {
+    flex: 1,
+    height: 40,
+    backgroundColor: '#f7fafa',
+    justifyContent: 'center',
+    marginRight: 5,
+    marginLeft: 10,
+    borderRadius: 2,
+    borderColor: '#E6E9EC',
+    borderWidth: 1/PixelRatio.get(),
   },
   space2: {
     justifyContent: 'center',
@@ -104,7 +128,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#001D39',
   },
   top: {
-    height: 85,
+    height: 70,
     justifyContent: 'center',
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -112,10 +136,24 @@ var styles = StyleSheet.create({
     padding: 20,
   },
   bottom: {
-    height: 200,
-    backgroundColor: '#f7fafa',
-    alignItems: 'stretch'
-
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'stretch',
+  },
+  row: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    borderBottomColor: '#E6E9EC',
+    marginTop: 1,
+    marginLeft: 10,
+    borderBottomWidth: 1/PixelRatio.get(),
+  },
+  row2: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
  });
 
