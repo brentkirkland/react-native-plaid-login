@@ -2,7 +2,7 @@
 
 A login template for Plaid's supported banks. All logins and security questions route to the Plaid sandbox. 
 
-**Build Not Passing**
+**Build is currently framed. But not functional**
 
 ##Supported Banks
 * American Express
