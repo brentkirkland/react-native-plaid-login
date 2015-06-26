@@ -63,7 +63,6 @@ var BankLoginSelect = React.createClass({
     );
   },
   _createBankRows: function(bank, i){
-    if (bank !== 'Wells Fargo'){
       return (
         <TouchableHighlight
         underlayColor='#f7fafa'
@@ -73,22 +72,17 @@ var BankLoginSelect = React.createClass({
           props: bank,
         })}
         key={i}>
-          <View style={styles.row} key={i}>
+          <View style={this._selectStyle(bank)} key={i}>
               <Text style={styles.bank}>{bank}</Text>
           </View>
         </TouchableHighlight>
       )
+  },
+  _selectStyle: function(bank){
+    if (bank === 'Wells Fargo'){
+      return styles.row2;
     } else {
-      return(
-        <TouchableHighlight
-        underlayColor='#f7fafa'
-        onPress={() => this._onCellPress(bank)}
-        key={i}>
-          <View style={styles.row2} key={i}>
-              <Text style={styles.bank}>{bank}</Text>
-          </View>
-        </TouchableHighlight>
-      );
+      return styles.row;
     }
   },
   _onCellPress: function(bank){
@@ -143,7 +137,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#f7fafa',
   },
   space: {
-    height: 90,
+    height: 95,
     backgroundColor: '#f7fafa',
   },
   space2: {

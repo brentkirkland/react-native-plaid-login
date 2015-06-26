@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react-native');
+var AnimationExperimental = require('AnimationExperimental');
+
 var {
   AppRegistry,
   StyleSheet,
@@ -10,32 +12,81 @@ var {
   PixelRatio,
   ScrollView,
   TouchableHighlight,
+  LayoutAnimation,
 } = React;
+
+var animations = {
+  layout: {
+    spring: {
+      duration: 400,
+      create: {
+        duration: 300,
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+      },
+      update: {
+        type: LayoutAnimation.Types.spring,
+        springDamping: 200,
+      },
+    },
+    easeInEaseOut: {
+      duration: 400,
+      create: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.scaleXY,
+      },
+      update: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+      },
+    },
+  },
+};
 
 var KeyboardEvents = require('react-native-keyboardevents');
 var KeyboardEventEmitter = KeyboardEvents.Emitter;
 
 var BankLogin = React.createClass({
   getInitialState: function() {
-      KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidShowEvent, (frames) => {
-          this.setState({keyboardSpace: frames.end.height});
-      });
-      KeyboardEventEmitter.on(KeyboardEvents.KeyboardWillHideEvent, (frames) => {
-          this.setState({keyboardSpace: 0});
-      });
-      return {
-        keyboardSpace: 0,
-      };
+    return {keyboardSpace: 0, space: 95};
+  },
+   updateKeyboardSpace: function(frames) {
+    LayoutAnimation.configureNext(animations.layout.spring);
+    this.setState({keyboardSpace: frames.end.height});
+
+    if (frames.begin.y < 650){
+
+      this.setState({space: 45});
+    }
+    if (frames.begin.y > 670){
+      this.setState({space: 124});
+    }
+  },
+
+  resetKeyboardSpace: function() {
+    LayoutAnimation.configureNext(animations.layout.spring);
+    this.setState({keyboardSpace: 0});
+  },
+
+  componentDidMount: function() {
+    KeyboardEventEmitter.on(KeyboardEvents.KeyboardDidShowEvent, this.updateKeyboardSpace);
+    KeyboardEventEmitter.on(KeyboardEvents.KeyboardWillHideEvent, this.resetKeyboardSpace);
+  },
+
+  componentWillUnmount: function() {
+    KeyboardEventEmitter.off(KeyboardEvents.KeyboardDidShowEvent, this.updateKeyboardSpace);
+    KeyboardEventEmitter.off(KeyboardEvents.KeyboardWillHideEvent, this.resetKeyboardSpace);
   },
 	render: function(){
 		return(
       <View
       style={styles.container}>
-          <View style={styles.space}/>
+          <View style={{height: this.state.space,
+              backgroundColor: '#f7fafa',}}/>
           <View style={styles.top}>
 					<Text style={styles.bank}>{this.props.route.props}</Text>
           </View>
-          <View style={styles.space}/>
+          <View style={{height: this.state.space,
+              backgroundColor: '#f7fafa',}}/>
            <View style={styles.space2}>
               <Text style={styles.instructions}>
                 Enter Your Username and Password
@@ -112,7 +163,7 @@ var styles = StyleSheet.create({
     color: '#fff',
   },
   textInput: {
-  	height: 50,
+  	flex:1,
   	color: '#001D39',
   },
   container: {
@@ -124,7 +175,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   space: {
-    height: 90,
+    height: 95,
     backgroundColor: '#f7fafa',
   },
   button: {
