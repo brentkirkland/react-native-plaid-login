@@ -85,11 +85,8 @@ var BankLoginSelect = React.createClass({
       return styles.row;
     }
   },
-  _onCellPress: function(bank){
-    console.log(event)
-  },
   _handleScroll: function(event: Object){
-    if (event.nativeEvent.contentOffset.y > 188) {
+    if (event.nativeEvent.contentOffset.y > 193) {
       this.setState({test: true})
     }
     else {

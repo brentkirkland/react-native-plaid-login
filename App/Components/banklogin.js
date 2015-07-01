@@ -47,7 +47,11 @@ var KeyboardEventEmitter = KeyboardEvents.Emitter;
 
 var BankLogin = React.createClass({
   getInitialState: function() {
-    return {keyboardSpace: 0, space: 95};
+    return {keyboardSpace: 0, space: 95,
+            username: false, password: false,
+            userString: null, passString: null,
+            valid: false,
+            message: 'Enter Your Username and Password',};
   },
    updateKeyboardSpace: function(frames) {
     LayoutAnimation.configureNext(animations.layout.spring);
@@ -76,6 +80,31 @@ var BankLogin = React.createClass({
     KeyboardEventEmitter.off(KeyboardEvents.KeyboardDidShowEvent, this.updateKeyboardSpace);
     KeyboardEventEmitter.off(KeyboardEvents.KeyboardWillHideEvent, this.resetKeyboardSpace);
   },
+  usernameCheck: function(name){
+    this.setState({userString: name})
+    if (name.length > 6) {
+      this.setState({username: true});
+    } else {
+      this.setState({username: false});
+    }
+    this.checkBoth();
+  },
+  passwordCheck: function(pass){
+    this.setState({passString: pass})
+    if (pass.length > 6) {
+      this.setState({password: true});
+    } else {
+      this.setState({password: false});
+    }
+    this.checkBoth();
+  },
+  checkBoth: function(){
+    if (this.state.password && this.state.username){
+      this.setState({valid: true})
+    } else {
+      this.setState({valid: false})
+    }
+  },
 	render: function(){
 		return(
       <View
@@ -85,19 +114,24 @@ var BankLogin = React.createClass({
           <View style={styles.top}>
 					<Text style={styles.bank}>{this.props.route.props}</Text>
           </View>
+
           <View style={{height: this.state.space,
               backgroundColor: '#f7fafa',}}/>
-           <View style={styles.space2}>
+            <View style={[styles.space2, (this.state.message !== 'Enter Your Username and Password') && styles.errorSpace]}>
               <Text style={styles.instructions}>
-                Enter Your Username and Password
+                {this.state.message}
               </Text>
           </View>
 
           <View style={styles.row}>
-					       <TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} autoCorrect={false} placeholder={'username'}/>
+					       <TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput}
+                 autoCorrect={false} placeholder={'username (plaid_test)'}
+                 onChangeText={(text) => this.usernameCheck(text)}/>
           </View>
           <View style={styles.row}>
-					       <TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput} password={true} placeholder={'password'}/>
+					       <TextInput placeholderTextColor={'#ADB7C0'} style={styles.textInput}
+                 password={true} placeholder={'password (plaid_good)'}
+                 onChangeText={(text) => this.passwordCheck(text)}/>
           </View>
           <View style={styles.bottom}></View>
           <View style={
@@ -117,9 +151,9 @@ var BankLogin = React.createClass({
             </TouchableHighlight>
 
             <TouchableHighlight
-            underlayColor='#E6E9EC'
-            onPress={() => this.props.navigator.pop()}
-            style={styles.button}>
+            underlayColor='#9BA6B1'
+            onPress={() => this.handleLogin()}
+            style={[styles.button, this.state.valid && styles.validButton]}>
               <Text style={styles.signIn}>
                 Sign In
               </Text>
@@ -127,9 +161,20 @@ var BankLogin = React.createClass({
           </View>
       </View>
 		)
-
-
 	},
+  handleLogin: function(){
+    if (this.state.valid) {
+      this.props.navigator.pop();
+    } else {
+      if (!this.state.username && !this.state.password){
+        this.setState({message: 'Enter Correct Username and Password'});
+      } else if (!this.state.password){
+        this.setState({message: 'Password Too Short'});
+      } else {
+        this.setState({message: 'Username Too Short'});
+      }
+    }
+  }
 
 });
 
@@ -181,12 +226,21 @@ var styles = StyleSheet.create({
   button: {
     flex: 1,
     height: 40,
+    backgroundColor: '#9BA6B1',
+    justifyContent: 'center',
+    marginLeft: 5,
+    marginRight: 10,
+    borderRadius: 1,
+  },
+  validButton: {
+    flex: 1,
+    height: 40,
     backgroundColor: '#001D39',
     justifyContent: 'center',
     marginLeft: 5,
     marginRight: 10,
     borderRadius: 1,
-    opacity: .40,
+    opacity: 1,
   },
   button2: {
     flex: 1,
@@ -203,6 +257,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     height: 30,
     backgroundColor: '#001D39',
+  },
+  errorSpace: {
+    justifyContent: 'center',
+    height: 30,
+    backgroundColor: '#FF3300',
   },
   top: {
     height: 70,
